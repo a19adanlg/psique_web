@@ -1,0 +1,39 @@
+{
+  "name": "psique_web",
+  "version": "1.0.0",
+  "description": "Psique_Web: Proyecto de fin de ciclo DAW - A19AdanLG",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "start": "vue-cli-service serve"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.31",
+    "@fortawesome/free-solid-svg-icons": "^5.15.0",
+    "@fortawesome/vue-fontawesome": "^2.0.8",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.1",
+    "bootstrap-vue": "^2.22.0",
+    "core-js": "^3.8.3",
+    "leaflet": "^1.9.2",
+    "vue": "^2.7.10",
+    "vue-axios": "^3.4.1",
+    "vue-router": "^3.5.1",
+    "vue-sweetalert2": "^5.0.5",
+    "vue2-leaflet": "^2.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-cli-plugin-fontawesome": "~0.3.1",
+    "vue-template-compiler": "^2.6.14",
+    "webpack-bundle-analyzer": "^4.7.0"
+  }
+}
