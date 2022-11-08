@@ -204,8 +204,8 @@
 <script>
 import axios from "axios";
 
-import HeaderView from "@/components/HeaderView.vue";
-import SidebarView from "@/components/SidebarView.vue";
+const HeaderView = () => import("@/components/HeaderView.vue");
+const SidebarView = () => import("@/components/SidebarView.vue");
 
 export default {
     name: 'CitasView',

@@ -66,9 +66,9 @@
 
 
 <script>
-import HeaderView from "@/components/HeaderView.vue";
-import FooterView from "@/components/FooterView.vue";
-import SidebarView from "@/components/SidebarView.vue";
+const HeaderView = () => import("@/components/HeaderView.vue");
+const SidebarView = () => import("@/components/SidebarView.vue");
+const FooterView = () => import("@/components/FooterView.vue");
 
 export default {
     name: 'HomeView',
