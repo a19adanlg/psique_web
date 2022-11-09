@@ -18,11 +18,18 @@
                     <div class="px-4"><span class="campo">Télefono</span>
                         <p class="d-flex">{{ citaView.telefono }}</p>
                     </div>
-                    <div><span class="campo">NIF doctor</span>
-                        <p class="d-flex">{{ citaView.nifDoctor }}</p>
+                    <div v-if="rolUsuario === 'ROLE_DOCTOR'">
+                        <div><span class="campo">NIF doctor</span>
+                            <p class="d-flex">{{ citaView.nifDoctor }}</p>
+                        </div>
+                        <div class="px-4"><span class="campo">Nombre doctor</span>
+                            <p class="d-flex">{{ citaView.nombreD }} {{ citaView.apellido1D }} {{ citaView.apellido2D }}</p>
+                        </div>
                     </div>
-                    <div class="px-4"><span class="campo">Nombre doctor</span>
-                        <p class="d-flex">{{ citaView.nombreD }} {{ citaView.apellido1D }} {{ citaView.apellido2D }}</p>
+                    <div v-else>
+                        <div><span class="campo">Nombre doctor</span>
+                            <p class="d-flex">{{ citaView.nombreD }} {{ citaView.apellido1D }} {{ citaView.apellido2D }}</p>
+                        </div>
                     </div>
                     <div><span class="campo">Fecha y hora</span>
                         <p class="d-flex">{{ citaView.fecha ? citaView.fecha : '--' }} ; {{ citaView.hora ? citaView.hora : '--'}}</p>
