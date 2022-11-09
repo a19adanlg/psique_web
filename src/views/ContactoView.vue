@@ -126,7 +126,9 @@
                             </div>
                             <l-map :zoom="zoom" :center="center">
                                 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-                                <l-marker :lat-lng="markerLatLng"></l-marker>
+                                <l-marker :lat-lng="markerLatLng">
+                                    <l-popup>Psique: Clínica de Salud Mental</l-popup>
+                                </l-marker>
                             </l-map>
                         </div>
                     </div>
@@ -142,7 +144,7 @@
 <script>
 import axios from "axios";
 
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 import { Icon } from 'leaflet';
 
 delete Icon.Default.prototype._getIconUrl;
@@ -163,6 +165,7 @@ export default {
         LMap,
         LTileLayer,
         LMarker,
+        LPopup,
         HeaderView,
         FooterView,
         SidebarView
