@@ -153,6 +153,7 @@ Icon.Default.mergeOptions({
     iconUrl: require('../assets/leaflet/marker-icon.png'),
     shadowUrl: require('../assets/leaflet/marker-shadow.png'),
     iconSize: [40, 40],
+    popupAnchor: [8, -40]
 });
 
 const HeaderView = () => import("@/components/HeaderView.vue");
