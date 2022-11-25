@@ -114,7 +114,7 @@ export default {
                 "nif": this.loginData.nif,
                 "password": this.loginData.password
             };
-            const url = "https://psique-api.herokuapp.com/login";
+            const url = "https://psique-api.up.railway.app/login";
 
             await axios.post(url, json).then(res => {
                 this.loginError.error = false;
@@ -157,7 +157,7 @@ export default {
                 "apellido1": this.registroData.apellido1,
                 "password": this.registroData.password
             };
-            const url = "https://psique-api.herokuapp.com/api/usuarios";
+            const url = "https://psique-api.up.railway.app/api/usuarios";
 
             await axios.post(url, json).then(res => {
                 this.limpiarLogin();

@@ -253,7 +253,7 @@ export default {
     },
     methods: {
         getCitas: function () {
-            const dir = "https://psique-api.herokuapp.com/api/citas";
+            const dir = "https://psique-api.up.railway.app/api/citas";
             axios.get(dir)
                 .then(res => {
                     this.citas = res.data;
@@ -272,7 +272,7 @@ export default {
         },
         sendCita: function () {
             if (this.editCita === false) {
-                const dir = "https://psique-api.herokuapp.com/api/citas";
+                const dir = "https://psique-api.up.railway.app/api/citas";
 
                 const json = {
                     "nifDoctor": this.cita.nifDoctor,
@@ -317,7 +317,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.herokuapp.com/api/citas/" + this.idEditCita;
+                const dir = "https://psique-api.up.railway.app/api/citas/" + this.idEditCita;
 
                 const json = {
                     "nifDoctor": this.cita.nifDoctor,
@@ -363,7 +363,7 @@ export default {
             }
         },
         verCita(id) {
-            const dir = "https://psique-api.herokuapp.com/api/citas/" + id;
+            const dir = "https://psique-api.up.railway.app/api/citas/" + id;
             axios.get(dir)
                 .then(res => {
                     this.citaView = res.data;
@@ -386,7 +386,7 @@ export default {
             this.editCita = true;
         },
         deleteCita(id) {
-            const dir = "https://psique-api.herokuapp.com/api/citas/" + id;
+            const dir = "https://psique-api.up.railway.app/api/citas/" + id;
 
             this.$swal.fire({
                 title: `¿Eliminar cita ${id}?`,

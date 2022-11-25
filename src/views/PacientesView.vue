@@ -221,7 +221,7 @@ export default {
     },
     methods: {
         getPacientes: function () {
-            const dir = "https://psique-api.herokuapp.com/api/pacientes";
+            const dir = "https://psique-api.up.railway.app/api/pacientes";
             axios.get(dir)
                 .then(res => {
                     this.pacientes = res.data;
@@ -240,7 +240,7 @@ export default {
         },
         sendPaciente: function () {
             if (this.editPaciente === false) {
-                const dir = "https://psique-api.herokuapp.com/api/pacientes";
+                const dir = "https://psique-api.up.railway.app/api/pacientes";
 
                 const json = {
                     "nif": this.paciente.nif,
@@ -288,7 +288,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.herokuapp.com/api/pacientes/" + this.nifEditPaciente;
+                const dir = "https://psique-api.up.railway.app/api/pacientes/" + this.nifEditPaciente;
 
                 const json = {
                     "nif": this.paciente.nif,
@@ -330,7 +330,7 @@ export default {
             }
         },
         verPaciente(nif) {
-            const dir = "https://psique-api.herokuapp.com/api/pacientes/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/pacientes/" + nif;
             axios.get(dir)
                 .then(res => {
                     this.pacienteView = res.data;
@@ -354,7 +354,7 @@ export default {
             this.editPaciente = true;
         },
         deletePaciente(nif) {
-            const dir = "https://psique-api.herokuapp.com/api/pacientes/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/pacientes/" + nif;
 
             this.$swal.fire({
                 title: `¿Eliminar paciente ${nif}?`,

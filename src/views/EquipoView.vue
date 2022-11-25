@@ -76,7 +76,7 @@ export default {
             this.rolUsuario = localStorage.rolUsuario;
         }
 
-        const dir = "https://psique-api.herokuapp.com/api/doctores";
+        const dir = "https://psique-api.up.railway.app/api/doctores";
         axios.get(dir)
             .then(res => {
                 this.doctores = res.data;

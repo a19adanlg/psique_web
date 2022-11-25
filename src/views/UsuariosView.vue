@@ -200,7 +200,7 @@ export default {
     },
     methods: {
         getUsuarios: function () {
-            const dir = "https://psique-api.herokuapp.com/api/usuarios";
+            const dir = "https://psique-api.up.railway.app/api/usuarios";
             axios.get(dir)
                 .then(res => {
                     this.usuarios = res.data;
@@ -219,7 +219,7 @@ export default {
         },
         sendUsuario: function () {
             if (this.editUsuario === false) {
-                const dir = "https://psique-api.herokuapp.com/api/usuarios";
+                const dir = "https://psique-api.up.railway.app/api/usuarios";
 
                 const json = {
                     "nif": this.usuario.nif,
@@ -261,7 +261,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.herokuapp.com/api/usuarios/" + this.nifEditUsuario;
+                const dir = "https://psique-api.up.railway.app/api/usuarios/" + this.nifEditUsuario;
 
                 const json = {
                     "nif": this.usuario.nif,
@@ -304,7 +304,7 @@ export default {
             }
         },
         verUsuario(nif) {
-            const dir = "https://psique-api.herokuapp.com/api/usuarios/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/usuarios/" + nif;
             axios.get(dir)
                 .then(res => {
                     this.usuarioView = res.data;
@@ -330,7 +330,7 @@ export default {
         deleteUsuario(nif) {
             this.usuarioError.error = false;
 
-            const dir = "https://psique-api.herokuapp.com/api/usuarios/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/usuarios/" + nif;
 
             this.$swal.fire({
                 title: `¿Eliminar usuario ${nif}?`,

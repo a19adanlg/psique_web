@@ -212,7 +212,7 @@ export default {
     },
     methods: {
         getUsuario: function () {
-            const dir = 'https://psique-api.herokuapp.com/api/usuarios/me';
+            const dir = 'https://psique-api.up.railway.app/api/usuarios/me';
             axios.get(dir)
                 .then(res => {
                     this.usuario = res.data;
@@ -230,7 +230,7 @@ export default {
                 });
         },
         sendUsuario: function () {
-            const dir = "https://psique-api.herokuapp.com/api/usuarios/" + this.nifEditUsuario;
+            const dir = "https://psique-api.up.railway.app/api/usuarios/" + this.nifEditUsuario;
 
             const json = {
                 "nombre": this.usuarioEdit.nombre,

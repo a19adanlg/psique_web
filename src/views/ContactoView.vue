@@ -212,7 +212,7 @@ export default {
     },
     methods: {
         sendCita: function () {
-            const dir = "https://psique-api.herokuapp.com/api/citas";
+            const dir = "https://psique-api.up.railway.app/api/citas";
 
             const json = {
                 "nifPaciente": this.cita.nifPaciente,

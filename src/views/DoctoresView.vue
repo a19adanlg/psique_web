@@ -223,7 +223,7 @@ export default {
     },
     methods: {
         getDoctores: function () {
-            const dir = "https://psique-api.herokuapp.com/api/doctores";
+            const dir = "https://psique-api.up.railway.app/api/doctores";
             axios.get(dir)
                 .then(res => {
                     this.doctores = res.data;
@@ -242,7 +242,7 @@ export default {
         },
         sendDoctor: function () {
             if (this.editDoctor === false) {
-                const dir = "https://psique-api.herokuapp.com/api/doctores";
+                const dir = "https://psique-api.up.railway.app/api/doctores";
 
                 const json = {
                     "nif": this.doctor.nif,
@@ -286,7 +286,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.herokuapp.com/api/doctores/" + this.nifEditDoctor;
+                const dir = "https://psique-api.up.railway.app/api/doctores/" + this.nifEditDoctor;
 
                 const json = {
                     "nif": this.doctor.nif,
@@ -331,7 +331,7 @@ export default {
             }
         },
         verDoctor(nif) {
-            const dir = "https://psique-api.herokuapp.com/api/doctores/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/doctores/" + nif;
             axios.get(dir)
                 .then(res => {
                     this.doctorView = res.data;
@@ -354,7 +354,7 @@ export default {
             this.editDoctor = true;
         },
         deleteDoctor(nif) {
-            const dir = "https://psique-api.herokuapp.com/api/doctores/" + nif;
+            const dir = "https://psique-api.up.railway.app/api/doctores/" + nif;
 
             this.$swal.fire({
                 title: `¿Eliminar doctor ${nif}?`,
