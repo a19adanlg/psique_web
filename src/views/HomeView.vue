@@ -103,6 +103,10 @@ main {
     overflow: hidden;
 }
 
+div.content {
+    margin-left: 225px;
+}
+
 .sidebar {
     list-style: none;
     position: absolute;
@@ -114,10 +118,6 @@ main {
     background-color: #1e1e1e;
     height: 100%;
     overflow: auto;
-}
-
-div.content {
-    margin-left: 225px;
 }
 
 .opcion {

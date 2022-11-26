@@ -42,13 +42,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
                             <span>{{ usuarioError.error_msg }}</span>
                         </div>
+
                         <form class="p-4" @submit.prevent="sendUsuario" autocomplete="off">
                             <div class="col-12 form-group">
-                                <div class="row">
-                                    <div v-if="newUsuario" class="col-lg-3 col-md-3 col-sm-12 mb-3">
+                                <div v-if="newUsuario" class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label class="mr-3">NIF usuario *</label>
                                         <input v-model="usuario.nif" type="text" class="form-control" id="nifUsuario" required>
                                         <small id="nifUsuario" class="form-text text-muted">Formato: 00000000T</small>
+                                    </div>
+                                </div>
+                                <div v-else class="row">
+                                    <div class="nif col-lg-3 col-md-3 col-sm-12 mb-3">
+                                        <label class="mr-3">NIF usuario</label>
+                                        <input v-model="usuarioEdit.nif" type="text" class="form-control" id="nifUsuario" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -58,23 +65,26 @@
                                     </div>
                                     <div v-else class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Nombre</label>
-                                        <input v-model="usuario.nombre" type="text" class="form-control">
+                                        <input v-model="usuario.nombre" type="text" class="form-control" v-bind:placeholder="usuarioEdit.nombre">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Primer apellido</label>
-                                        <input v-model="usuario.apellido1" type="text" class="form-control">
+                                        <input v-if="editUsuario" v-model="usuario.apellido1" type="text" class="form-control" v-bind:placeholder="usuarioEdit.apellido1 ? usuarioEdit.apellido1 : '--'">
+                                        <input v-else v-model="usuario.apellido1" type="text" class="form-control">
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Segundo apellido</label>
-                                        <input v-model="usuario.apellido2" type="text" class="form-control">
+                                        <input v-if="editUsuario" v-model="usuario.apellido2" type="text" class="form-control" v-bind:placeholder="usuarioEdit.apellido2 ? usuarioEdit.apellido2 : '--'">
+                                        <input v-else v-model="usuario.apellido2" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5 col-sm-12 mb-3">
                                         <label>Email</label>
-                                        <input v-model="usuario.email" type="email" class="form-control" id="email">
+                                        <input v-if="editUsuario" v-model="usuario.email" type="text" class="form-control" v-bind:placeholder="usuarioEdit.email ? usuarioEdit.email : '--'">
+                                        <input v-else v-model="usuario.email" type="email" class="form-control" id="email">
                                         <small id="email" class="form-text text-muted">Formato: foo@bar.es</small>
                                     </div>
                                 </div>
@@ -85,13 +95,18 @@
                                     </div>
                                     <div v-else class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Password</label>
-                                        <input v-model="usuario.password" type="password" class="form-control" id="password" autocomplete="off">
+                                        <input v-model="usuario.password" type="password" class="form-control" id="password" autocomplete="off" placeholder="******">
                                     </div>
                                 </div>
                                 <div v-if="rolUsuario === 'ROLE_ADMIN'" class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                     <label for="rol">Rol</label>
-                                    <select v-model="usuario.rol" id="rol" class="form-control">
-                                        <option selected disabled value="">Selecciona uno</option>
+                                    <select v-if="editUsuario" v-model="usuarioEdit.rol" id="rol" class="form-control">
+                                        <option value="ROLE_ADMIN">Administrador</option>
+                                        <option value="ROLE_DOCTOR">Doctor</option>
+                                        <option value="ROLE_PACIENTE">Paciente</option>
+                                    </select>
+                                    <select v-else v-model="usuario.rol" id="rol" class="form-control">
+                                        <option selected disabled value="">--</option>
                                         <option value="ROLE_ADMIN">Administrador</option>
                                         <option value="ROLE_DOCTOR">Doctor</option>
                                         <option value="ROLE_PACIENTE">Paciente</option>
@@ -115,6 +130,36 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
                             <span>{{ usuarioError.error_msg }}</span>
                         </div>
+
+                        <div class="px-0 mt-3">
+                            <div id="filtersHead" class="px-2">
+                                <h5 class="float-start">Filtrar</h5>
+                                <button v-if="!showFiltersBool" id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-down" /></button>
+                                <button v-else id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-up" /></button>
+                            </div>
+                            <div v-if="showFiltersBool" id="filters" class="mb-5">
+                                <div class="row px-4">
+                                    <div class="col-md-6 col-12">
+                                        <label for="nifUsuario">NIF Usuario</label>
+                                        <input v-on:keyup.enter="filter" v-model="filterUsuario" type="text" class="form-control" id="nifUsuario" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="rol">Rol</label>
+                                        <select v-model="filterRol" id="rol" class="form-control">
+                                            <option selected disabled value="">--</option>
+                                            <option value="ROLE_ADMIN">Administrador</option>
+                                            <option value="ROLE_DOCTOR">Doctor</option>
+                                            <option value="ROLE_PACIENTE">Paciente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="pt-3 px-4">
+                                    <button class="btn btn-outline-info btn-sm float-end mx-1" @click="filter()">Filtrar</button>
+                                    <button class="btn btn-outline-danger btn-sm float-end mx-1" @click="clearFilters()">Limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <table class="table table-responsive pt-2">
                             <thead>
                                 <tr>
@@ -182,9 +227,12 @@ export default {
                 rol: ''
             },
             usuarioView: '',
+            usuarioEdit: '',
+            usuariosData: '',
             usuarios: null,
+            filterUsuario: '',
+            filterRol: '',
             editUsuario: false,
-            nifEditUsuario: '',
             newUsuario: false,
             alertDelete: false,
             modalShow: false,
@@ -192,6 +240,7 @@ export default {
                 error: false,
                 error_msg: "",
             },
+            showFiltersBool: false,
             rolUsuario: "",
             styleIfSidebar: {
                 marginLeft: '225px',
@@ -203,7 +252,8 @@ export default {
             const dir = "https://psique-api.up.railway.app/api/usuarios";
             axios.get(dir)
                 .then(res => {
-                    this.usuarios = res.data;
+                    this.usuariosData = res.data;
+                    this.usuarios = this.usuariosData;
                 }).catch(error => {
                     if (error.response) {
                         this.usuarioError.error = true;
@@ -261,7 +311,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.up.railway.app/api/usuarios/" + this.nifEditUsuario;
+                const dir = "https://psique-api.up.railway.app/api/usuarios/" + this.usuarioEdit.nif;
 
                 const json = {
                     "nif": this.usuario.nif,
@@ -270,7 +320,7 @@ export default {
                     "apellido2": this.usuario.apellido2,
                     "email": this.usuario.email,
                     "password": this.usuario.password,
-                    "rol": this.usuario.rol
+                    "rol": this.usuarioEdit.rol
                 };
                 axios.put(dir, json)
                     .then(res => {
@@ -323,7 +373,23 @@ export default {
             this.modalShow = true;
         },
         modUsuario(nif) {
-            this.nifEditUsuario = nif;
+            const dir = "https://psique-api.up.railway.app/api/usuarios/" + nif;
+            axios.get(dir)
+                .then(res => {
+                    this.usuarioEdit = res.data;
+                }).catch(error => {
+                    if (error.response) {
+                        this.usuarioError.error = true;
+                        this.usuarioError.error_msg = error.response.statusText;
+                    } else if (error.request) {
+                        this.usuarioError.error = true;
+                        this.usuarioError.error_msg = error.request.statusText;
+                    } else {
+                        this.usuarioError.error = true;
+                        this.usuarioError.error_msg = error.message;
+                    }
+                });
+
             this.editUsuario = true;
             this.usuarioError.error = false;
         },
@@ -375,6 +441,14 @@ export default {
                 }
             })
         },
+        filter() {
+            this.usuarios = this.usuariosData;
+
+            if (this.filterUsuario)
+                this.usuarios = this.usuarios.filter(item => { return item.nif.includes(this.filterUsuario) })
+            if (this.filterRol)
+                this.usuarios = this.usuarios.filter(item => { return item.rol.includes(this.filterRol) })
+        },
         clear() {
             this.usuarioError.error = false;
             this.usuario.nif = '';
@@ -384,6 +458,18 @@ export default {
             this.usuario.email = '';
             this.usuario.password = '';
             this.usuario.rol = '';
+        },
+        clearFilters() {
+            this.filterUsuario = '';
+            this.filterRol = '';
+            this.usuarios = this.usuariosData;
+        },
+        showFilters() {
+            if (this.showFiltersBool) {
+                this.showFiltersBool = false
+            } else {
+                this.showFiltersBool = true
+            }
         },
         btnNewUsuario() {
             this.usuarioError.error = false;
@@ -423,37 +509,6 @@ main {
     overflow: hidden;
 }
 
-@media screen and (min-width: 960px) {
-    main {
-        display: flex;
-    }
-}
-
-@media screen and (max-width: 959px) {
-    div.content {
-        margin-left: 0 !important;
-    }
-}
-
-.slide {
-    text-align: center;
-    background-color: #1e1e1e;
-    color: #ececec;
-}
-
-.alert {
-    padding-left: 0;
-}
-
-.btn-close {
-    padding-right: 20px;
-    font-size: 15px;
-}
-
-.container {
-    min-height: 100vh;
-}
-
 svg {
     margin-right: 7px;
 }
@@ -485,6 +540,43 @@ tbody tr td {
     color: #ececec;
 }
 
+form {
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+}
+
+label,
+option {
+    color: #ececec !important;
+    font-size: 15px;
+}
+
+small,
+.text-muted {
+    color: #6c757d !important;
+}
+
+.slide {
+    text-align: center;
+    background-color: #1e1e1e;
+    color: #ececec;
+}
+
+.alert {
+    padding-left: 0;
+}
+
+.btn-close {
+    padding-right: 20px;
+    font-size: 15px;
+}
+
+.container {
+    min-height: 100vh;
+}
+
 .table {
     --bs-table-border-color: transparent;
     --bs-table-accent-bg: transparent;
@@ -492,19 +584,6 @@ tbody tr td {
     --bs-table-active-color: #333333;
     --bs-table-hover-bg: #eba100;
     --bs-table-hover-color: #333333;
-}
-
-@media (max-width: 768px) {
-    th,
-    td {
-        padding: 10px !important;
-    }
-
-    table {
-        max-width: fit-content;
-        margin-left: auto;
-        margin-right: auto
-    }
 }
 
 .btn-atras,
@@ -529,35 +608,21 @@ tbody tr td {
     right: 50px;
 }
 
-#ver,
-#editar,
-#eliminar {
-    color: #ececec;
-}
-
-#ver:hover {
-    color: #eba100;
-}
-
-#editar:hover {
-    color: #753ac4;
-}
-
-#eliminar:hover {
-    color: #b11f1f;
-}
-
-form {
-    padding: 20px;
-    margin: 0;
-    margin-bottom: 20px;
-    background-color: #1e1e1e;
-}
-
-label,
-option {
-    color: #ececec !important;
-    font-size: 15px;
+.btn-outline-danger {
+    --bs-btn-color: #dc3545;
+    --bs-btn-border-color: #dc3545;
+    --bs-btn-hover-color: rgb(61, 61, 61);
+    --bs-btn-hover-bg: #dc3545;
+    --bs-btn-hover-border-color: #dc3545;
+    --bs-btn-focus-shadow-rgb: 220, 53, 69;
+    --bs-btn-active-color: rgb(61, 61, 61);
+    --bs-btn-active-bg: #dc3545;
+    --bs-btn-active-border-color: #dc3545;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #dc3545;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #dc3545;
+    --bs-gradient: none;
 }
 
 .form-control,
@@ -571,7 +636,59 @@ option {
     caret-color: #ececec;
 }
 
-small, .text-muted {
-    color: #6c757d !important;
+.nif {
+    opacity: 0.35 !important;
+}
+
+#ver,
+#editar,
+#eliminar,
+#down {
+    color: #ececec;
+}
+
+#ver:hover {
+    color: #eba100;
+}
+
+#editar:hover {
+    color: #753ac4;
+}
+
+#eliminar:hover {
+    color: #dc3545;
+}
+
+#filtersHead {
+    height: 45px;
+    margin-bottom: 10px;
+}
+
+::-webkit-input-placeholder {
+    opacity: 0.35 !important;
+}
+
+@media screen and (min-width: 960px) {
+    main {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    div.content {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    th,
+    td {
+        padding: 10px !important;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto
+    }
 }
 </style>

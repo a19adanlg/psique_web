@@ -20,43 +20,49 @@
                         <form class="p-4" @submit.prevent="sendUsuario" autocomplete="off">
                             <div class="col-12 form-group">
                                 <div class="row">
-                                    <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
-                                        <label class="nif">NIF</label>
-                                        <input type="text" class="nif form-control" disabled :placeholder="usuario.nif">
+                                    <div class="nif col-lg-5 col-md-5 col-sm-12 mb-3">
+                                        <label>NIF</label>
+                                        <input type="text" class="form-control" disabled v-bind:placeholder="usuario.nif">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Nombre</label>
-                                        <input v-model="usuarioEdit.nombre" type="text" class="form-control">
+                                        <input v-model="usuarioEdit.nombre" type="text" class="form-control" v-bind:placeholder="usuario.nombre">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Primer apellido</label>
-                                        <input v-model="usuarioEdit.apellido1" type="text" class="form-control">
+                                        <input v-model="usuarioEdit.apellido1" type="text" class="form-control" v-bind:placeholder="usuario.apellido1 ? usuario.apellido1 : '--'">
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Segundo apellido</label>
-                                        <input v-model="usuarioEdit.apellido2" type="text" class="form-control">
+                                        <input v-model="usuarioEdit.apellido2" type="text" class="form-control" v-bind:placeholder="usuario.apellido2 ? usuario.apellido2 : '--'">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5 col-sm-12 mb-3">
                                         <label>Email</label>
-                                        <input v-model="usuarioEdit.email" type="email" class="form-control" id="email">
+                                        <input v-model="usuarioEdit.email" type="email" class="form-control" id="email" v-bind:placeholder="usuario.email ? usuario.email : '--'">
                                         <small id="email" class="form-text text-muted">Formato: foo@bar.es</small>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Password</label>
-                                        <input v-model="usuarioEdit.password" type="password" class="form-control" id="password" autocomplete="off">
+                                        <input v-model="usuarioEdit.password" type="password" class="form-control" id="password" autocomplete="off" placeholder="******">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <label>Foto de perfil</label>
+                                        <img :src="usuario.fotoPerfil" alt="Avatar" class="rounded-circle img-fluid mt-5" />
+                                        <label id="photoLabel" class="mx-3">Foto de perfil actual</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label>URL de la nueva foto de perfil</label>
                                         <input v-model="usuarioEdit.fotoPerfil" type="text" class="form-control">
                                     </div>
                                 </div>
@@ -307,6 +313,24 @@ export default {
 
 
 <style scoped>
+form {
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+}
+
+label,
+option {
+    color: #ececec !important;
+    font-size: 15px;
+}
+
+small,
+.text-muted {
+    color: #6c757d !important;
+}
+
 .rounded-circle {
     width: 150px;
     height: 150px;
@@ -357,23 +381,6 @@ export default {
     right: 50px;
 }
 
-form {
-    padding: 20px;
-    margin: 0;
-    margin-bottom: 20px;
-    background-color: #1e1e1e;
-}
-
-label,
-option {
-    color: #ececec !important;
-    font-size: 15px;
-}
-
-.nif {
-    opacity: .25 !important;
-}
-
 .form-control,
 .form-control:focus,
 .form-control:hover {
@@ -385,7 +392,17 @@ option {
     caret-color: #ececec;
 }
 
-small, .text-muted {
-    color: #6c757d !important;
+.nif {
+    opacity: 0.35 !important;
+}
+
+::-webkit-input-placeholder {
+    opacity: 0.35 !important;
+}
+
+@media (max-width: 392px) {
+    #photoLabel {
+        display: none;
+    }
 }
 </style>

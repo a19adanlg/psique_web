@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div><span class="campo">Fecha y hora</span>
-                        <p class="d-flex">{{ citaView.fecha ? citaView.fecha : '--' }} ; {{ citaView.hora ? citaView.hora : '--'}}</p>
+                        <p class="d-flex">{{ citaView.fecha ? citaView.fecha : '--' }} ; {{ citaView.hora ? citaView.hora : '--' }}</p>
                     </div>
                     <div><span class="campo">Especialidad</span>
                         <p class="d-flex">{{ citaView.especialidad }}</p>
@@ -58,13 +58,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
                             <span>{{ citaError.error_msg }}</span>
                         </div>
+
                         <form class="p-4" @submit.prevent="sendCita" autocomplete="off">
                             <div class="col-12 form-group">
                                 <div v-if="rolUsuario === 'ROLE_DOCTOR'">
                                     <div class="row" v-if="editCita">
                                         <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label class="mr-3">NIF doctor</label>
-                                            <input v-model="cita.nifDoctor" type="text" class="form-control" id="nifDoctor">
+                                            <input v-model="cita.nifDoctor" type="text" class="form-control" id="nifDoctor" v-bind:placeholder="citaEdit.nifDoctor ? citaEdit.nifDoctor : '--'">
                                             <small id="nifDoctor" class="form-text text-muted">Formato: 00000000T</small>
                                         </div>
                                     </div>
@@ -76,31 +77,35 @@
                                         </div>
                                         <div v-else class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label class="mr-3">NIF paciente</label>
-                                            <input v-model="cita.nifPaciente" type="text" class="form-control" id="nifPaciente">
+                                            <input v-model="cita.nifPaciente" type="text" class="form-control" id="nifPaciente" v-bind:placeholder="citaEdit.nifPaciente ? citaEdit.nifPaciente : '--'">
                                             <small id="nifPaciente" class="form-text text-muted">Formato: 00000000T</small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                             <label>Nombre paciente</label>
-                                            <input v-model="cita.nombreP" type="text" class="form-control">
+                                            <input v-if="editCita" v-model="cita.nombreP" type="text" class="form-control" v-bind:placeholder="citaEdit.nombreP ? citaEdit.nombreP : '--'">
+                                            <input v-else v-model="cita.nombreP" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                             <label>Primer apellido paciente</label>
-                                            <input v-model="cita.apellido1P" type="text" class="form-control">
+                                            <input v-if="editCita" v-model="cita.apellido1P" type="text" class="form-control" v-bind:placeholder="citaEdit.apellido1P ? citaEdit.apellido1P : '--'">
+                                            <input v-else v-model="cita.apellido1P" type="text" class="form-control">
                                         </div>
                                         <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                             <label>Segundo apellido paciente</label>
-                                            <input v-model="cita.apellido2P" type="text" class="form-control">
+                                            <input v-if="editCita" v-model="cita.apellido2P" type="text" class="form-control" v-bind:placeholder="citaEdit.apellido2P ? citaEdit.apellido2P : '--'">
+                                            <input v-else v-model="cita.apellido2P" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Teléfono</label>
-                                        <input v-model="cita.telefono" type="text" class="form-control" id="telefono">
+                                        <input v-if="editCita" v-model="cita.telefono" type="text" class="form-control" id="telefono" v-bind:placeholder="citaEdit.telefono ? citaEdit.telefono : '--'">
+                                        <input v-else v-model="cita.telefono" type="text" class="form-control" id="telefono">
                                         <small id="telefono" class="form-text text-muted">Formato: 666777888 / +34666777888</small>
                                     </div>
                                 </div>
@@ -120,12 +125,12 @@
                                     <div v-else class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label>Fecha cita</label>
-                                            <input v-model="cita.fecha" type="date" class="form-control" id="fecha">
+                                            <input v-model="citaEdit.fecha" type="date" class="form-control" id="fecha">
                                             <small id="fecha" class="form-text text-muted">Formato: 31/12/2022</small>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label>Hora cita</label>
-                                            <input v-model="cita.hora" type="time" class="form-control" id="hora">
+                                            <input v-model="citaEdit.hora" type="time" class="form-control" id="hora">
                                             <small id="hora" class="form-text text-muted">Formato: 24:00</small>
                                         </div>
                                     </div>
@@ -134,7 +139,7 @@
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label for="especialidad">Especialidad *</label>
                                         <select v-model="cita.especialidad" id="especialidad" class="form-control" required>
-                                            <option selected disabled value="">Selecciona una</option>
+                                            <option selected disabled value="">--</option>
                                             <option>Psicología</option>
                                             <option>Psiquiatría</option>
                                         </select>
@@ -144,7 +149,8 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
                                         <label for="mensaje">Mensaje</label>
-                                        <textarea v-model="cita.mensaje" class="form-control" id="mensaje" rows="3"></textarea>
+                                        <textarea v-if="editCita" v-model="cita.mensaje" class="form-control" id="mensaje" rows="3" v-bind:placeholder="citaEdit.mensaje"></textarea>
+                                        <textarea v-else v-model="cita.mensaje" class="form-control" id="mensaje" rows="3"></textarea>
                                     </div>
                                 </div>
 
@@ -161,6 +167,43 @@
                     </div>
 
                     <div v-else>
+                        <div class="m-0 alert alert-danger" role="alert" v-if="citaError.error">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
+                            <span>{{ citaError.error_msg }}</span>
+                        </div>
+
+                        <div class="px-0 mt-3">
+                            <div id="filtersHead" class="px-2">
+                                <h5 class="float-start">Filtrar</h5>
+                                <button v-if="!showFiltersBool" id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-down" /></button>
+                                <button v-else id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-up" /></button>
+                            </div>
+                            <div v-if="showFiltersBool" id="filters" class="mb-5">
+                                <div class="row px-4">
+                                    <div v-if="rolUsuario === 'ROLE_DOCTOR'" class="col-md-6 col-12">
+                                        <label>NIF Paciente</label>
+                                        <input v-on:keyup.enter="filter" v-model="filterPaciente" type="text" class="form-control" id="nifPaciente" autocomplete="off">
+                                    </div>
+                                    <div v-if="rolUsuario === 'ROLE_PACIENTE'" class="col-md-6 col-12">
+                                        <label>NIF Doctor</label>
+                                        <input v-on:keyup.enter="filter" v-model="filterDoctor" type="text" class="form-control" id="nifDoctor" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="especialidad">Especialidad</label>
+                                        <select v-model="filterEspecialidad" id="especialidad" class="form-control">
+                                            <option selected disabled value="">--</option>
+                                            <option>Psicología</option>
+                                            <option>Psiquiatría</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="pt-3 px-4">
+                                    <button class="btn btn-outline-info btn-sm float-end mx-1" @click="filter()">Filtrar</button>
+                                    <button class="btn btn-outline-danger btn-sm float-end mx-1" @click="clearFilters()">Limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <table class="table table-responsive pt-2">
                             <thead>
                                 <tr>
@@ -235,9 +278,13 @@ export default {
                 mensaje: ''
             },
             citaView: '',
+            citaEdit: '',
+            citasData: null,
             citas: null,
+            filterDoctor: '',
+            filterEspecialidad: '',
+            filterPaciente: '',
             editCita: false,
-            idEditCita: '',
             newCita: false,
             alertDelete: false,
             modalShow: false,
@@ -245,6 +292,7 @@ export default {
                 error: false,
                 error_msg: "",
             },
+            showFiltersBool: false,
             rolUsuario: "",
             styleIfSidebar: {
                 marginLeft: '225px',
@@ -256,7 +304,8 @@ export default {
             const dir = "https://psique-api.up.railway.app/api/citas";
             axios.get(dir)
                 .then(res => {
-                    this.citas = res.data;
+                    this.citasData = res.data;
+                    this.citas = this.citasData;
                 }).catch(error => {
                     if (error.response) {
                         this.citaError.error = true;
@@ -317,7 +366,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.up.railway.app/api/citas/" + this.idEditCita;
+                const dir = "https://psique-api.up.railway.app/api/citas/" + this.citaEdit.id;
 
                 const json = {
                     "nifDoctor": this.cita.nifDoctor,
@@ -326,8 +375,8 @@ export default {
                     "apellido1P": this.cita.apellido1P,
                     "apellido2P": this.cita.apellido2P,
                     "telefono": this.cita.telefono,
-                    "fecha": this.cita.fecha,
-                    "hora": this.cita.hora,
+                    "fecha": this.citaEdit.fecha,
+                    "hora": this.citaEdit.hora,
                     "especialidad": this.cita.especialidad,
                     "mensaje": this.cita.mensaje
                 };
@@ -379,10 +428,27 @@ export default {
                         this.citaError.error_msg = error.message;
                     }
                 });
+
             this.modalShow = true;
         },
         modCita(id) {
-            this.idEditCita = id;
+            const dir = "https://psique-api.up.railway.app/api/citas/" + id;
+            axios.get(dir)
+                .then(res => {
+                    this.citaEdit = res.data;
+                }).catch(error => {
+                    if (error.response) {
+                        this.citaError.error = true;
+                        this.citaError.error_msg = error.response.statusText;
+                    } else if (error.request) {
+                        this.citaError.error = true;
+                        this.citaError.error_msg = error.request.statusText;
+                    } else {
+                        this.citaError.error = true;
+                        this.citaError.error_msg = error.message;
+                    }
+                });
+
             this.editCita = true;
         },
         deleteCita(id) {
@@ -431,6 +497,16 @@ export default {
                 }
             })
         },
+        filter() {
+            this.citas = this.citasData;
+
+            if (this.filterDoctor)
+                this.citas = this.citas.filter(item => { return item.nifDoctor.includes(this.filterDoctor) })
+            if (this.filterEspecialidad)
+                this.citas = this.citas.filter(item => { return item.especialidad.includes(this.filterEspecialidad) })
+            if (this.filterPaciente)
+                this.citas = this.citas.filter(item => { return item.nifPaciente.includes(this.filterPaciente) })
+        },
         clear() {
             this.citaError.error = false;
             this.cita.nifDoctor = '';
@@ -443,6 +519,19 @@ export default {
             this.cita.hora = '';
             this.cita.especialidad = '';
             this.cita.mensaje = '';
+        },
+        clearFilters() {
+            this.filterDoctor = '';
+            this.filterEspecialidad = '';
+            this.filterPaciente = '';
+            this.citas = this.citasData;
+        },
+        showFilters() {
+            if (this.showFiltersBool) {
+                this.showFiltersBool = false
+            } else {
+                this.showFiltersBool = true
+            }
         },
         btnNewCita() {
             this.newCita = true;
@@ -481,37 +570,6 @@ main {
     overflow: hidden;
 }
 
-@media screen and (min-width: 960px) {
-    main {
-        display: flex;
-    }
-}
-
-@media screen and (max-width: 959px) {
-    div.content {
-        margin-left: 0 !important;
-    }
-}
-
-.slide {
-    text-align: center;
-    background-color: #1e1e1e;
-    color: #ececec;
-}
-
-.alert {
-    padding-left: 0;
-}
-
-.btn-close {
-    padding-right: 20px;
-    font-size: 15px;
-}
-
-.container {
-    min-height: 100vh;
-}
-
 svg {
     margin-right: 7px;
 }
@@ -543,6 +601,43 @@ tbody tr td {
     color: #ececec;
 }
 
+form {
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+}
+
+label,
+option {
+    color: #ececec !important;
+    font-size: 15px;
+}
+
+small,
+.text-muted {
+    color: #6c757d !important;
+}
+
+.slide {
+    text-align: center;
+    background-color: #1e1e1e;
+    color: #ececec;
+}
+
+.alert {
+    padding-left: 0;
+}
+
+.btn-close {
+    padding-right: 20px;
+    font-size: 15px;
+}
+
+.container {
+    min-height: 100vh;
+}
+
 .table {
     --bs-table-border-color: transparent;
     --bs-table-accent-bg: transparent;
@@ -550,19 +645,6 @@ tbody tr td {
     --bs-table-active-color: #333333;
     --bs-table-hover-bg: #eba100;
     --bs-table-hover-color: #333333;
-}
-
-@media (max-width: 768px) {
-    th,
-    td {
-        padding: 10px !important;
-    }
-
-    table {
-        max-width: fit-content;
-        margin-left: auto;
-        margin-right: auto
-    }
 }
 
 .btn-atras,
@@ -587,35 +669,21 @@ tbody tr td {
     right: 50px;
 }
 
-#ver,
-#editar,
-#eliminar {
-    color: #ececec;
-}
-
-#ver:hover {
-    color: #eba100;
-}
-
-#editar:hover {
-    color: #753ac4;
-}
-
-#eliminar:hover {
-    color: #b11f1f;
-}
-
-form {
-    padding: 20px;
-    margin: 0;
-    margin-bottom: 20px;
-    background-color: #1e1e1e;
-}
-
-label,
-option {
-    color: #ececec !important;
-    font-size: 15px;
+.btn-outline-danger {
+    --bs-btn-color: #dc3545;
+    --bs-btn-border-color: #dc3545;
+    --bs-btn-hover-color: rgb(61, 61, 61);
+    --bs-btn-hover-bg: #dc3545;
+    --bs-btn-hover-border-color: #dc3545;
+    --bs-btn-focus-shadow-rgb: 220, 53, 69;
+    --bs-btn-active-color: rgb(61, 61, 61);
+    --bs-btn-active-bg: #dc3545;
+    --bs-btn-active-border-color: #dc3545;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #dc3545;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #dc3545;
+    --bs-gradient: none;
 }
 
 .form-control,
@@ -629,7 +697,55 @@ option {
     caret-color: #ececec;
 }
 
-small, .text-muted {
-    color: #6c757d !important;
+#ver,
+#editar,
+#eliminar,
+#down {
+    color: #ececec;
+}
+
+#ver:hover {
+    color: #eba100;
+}
+
+#editar:hover {
+    color: #753ac4;
+}
+
+#eliminar:hover {
+    color: #dc3545;
+}
+
+#filtersHead {
+    height: 45px;
+    margin-bottom: 10px;
+}
+
+::-webkit-input-placeholder {
+    opacity: 0.35 !important;
+}
+
+@media screen and (min-width: 960px) {
+    main {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    div.content {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    th,
+    td {
+        padding: 10px !important;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto
+    }
 }
 </style>

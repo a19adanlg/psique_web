@@ -47,13 +47,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
                             <span>{{ doctorError.error_msg }}</span>
                         </div>
+
                         <form class="p-4" @submit.prevent="sendDoctor" autocomplete="off">
                             <div class="col-12 form-group">
-                                <div class="row">
-                                    <div v-if="newDoctor" class="col-lg-3 col-md-3 col-sm-12 mb-3">
+                                <div v-if="newDoctor" class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label class="mr-3">NIF doctor *</label>
                                         <input v-model="doctor.nif" type="text" class="form-control" id="nifDoctor" required>
                                         <small id="nifDoctor" class="form-text text-muted">Formato: 00000000T</small>
+                                    </div>
+                                </div>
+                                <div v-else class="row">
+                                    <div class="nif col-lg-3 col-md-3 col-sm-12 mb-3">
+                                        <label class="mr-3">NIF doctor</label>
+                                        <input v-model="doctorEdit.nif" type="text" class="form-control" id="nifDoctor" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -63,30 +70,34 @@
                                     </div>
                                     <div v-else class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Nombre</label>
-                                        <input v-model="doctor.nombre" type="text" class="form-control">
+                                        <input v-model="doctor.nombre" type="text" class="form-control" v-bind:placeholder="doctorEdit.nombre">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Primer apellido</label>
-                                        <input v-model="doctor.apellido1" type="text" class="form-control">
+                                        <input v-if="editDoctor" v-model="doctor.apellido1" type="text" class="form-control" v-bind:placeholder="doctorEdit.apellido1 ? doctorEdit.apellido1 : '--'">
+                                        <input v-else v-model="doctor.apellido1" type="text" class="form-control">
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 mb-3">
                                         <label>Segundo apellido</label>
-                                        <input v-model="doctor.apellido2" type="text" class="form-control">
+                                        <input v-if="editDoctor" v-model="doctor.apellido2" type="text" class="form-control" v-bind:placeholder="doctorEdit.apellido2 ? doctorEdit.apellido2 : '--'">
+                                        <input v-else v-model="doctor.apellido2" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Teléfono</label>
-                                        <input v-model="doctor.telefono" type="text" class="form-control" id="telefono">
+                                        <input v-if="editDoctor" v-model="doctor.telefono" type="text" class="form-control" v-bind:placeholder="doctorEdit.telefono ? doctorEdit.telefono : '--'">
+                                        <input v-else v-model="doctor.telefono" type="text" class="form-control" id="telefono">
                                         <small id="telefono" class="form-text text-muted">Formato: 666777888 / +34666777888</small>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Fecha de nacimiento</label>
-                                        <input v-model="doctor.fecNac" type="date" class="form-control" id="fecha">
+                                        <input v-if="editDoctor" v-model="doctorEdit.fecNac" type="date" class="form-control" id="fecha">
+                                        <input v-else v-model="doctor.fecNac" type="date" class="form-control" id="fecha">
                                         <small id="fecha" class="form-text text-muted">Formato: 31/12/2022</small>
                                     </div>
                                 </div>
@@ -94,7 +105,7 @@
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label for="especialidad">Especialidad *</label>
                                         <select v-model="doctor.especialidad" id="especialidad" class="form-control" required>
-                                            <option selected disabled value="">Selecciona una</option>
+                                            <option selected disabled value="">--</option>
                                             <option>Psicología</option>
                                             <option>Psiquiatría</option>
                                         </select>
@@ -103,8 +114,7 @@
                                 <div class="row" v-else>
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label for="especialidad">Especialidad</label>
-                                        <select v-model="doctor.especialidad" id="especialidad" class="form-control">
-                                            <option selected disabled value="">Selecciona una</option>
+                                        <select v-model="doctorEdit.especialidad" id="especialidad" class="form-control">
                                             <option>Psicología</option>
                                             <option>Psiquiatría</option>
                                         </select>
@@ -113,12 +123,19 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
                                         <label for="descripcion">Descripción</label>
-                                        <textarea v-model="doctor.descripcion" class="form-control" id="descripcion" rows="3"></textarea>
+                                        <textarea v-if="editDoctor" v-model="doctor.descripcion" class="form-control" id="descripcion" rows="4" v-bind:placeholder="doctorEdit.descripcion ? doctorEdit.descripcion : '--'"></textarea>
+                                        <textarea v-else v-model="doctor.descripcion" class="form-control" id="descripcion" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <img :src="doctorEdit.fotoDoctor" alt="Avatar" style="width: 200px; height: auto;" />
+                                        <label id="photoLabel" class="mx-3">Foto del doctor actual</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 mb-3">
-                                        <label>Foto</label>
+                                        <label>URL de la nueva foto</label>
                                         <input v-model="doctor.fotoDoctor" type="text" class="form-control" id="fecha">
                                     </div>
                                 </div>
@@ -136,6 +153,39 @@
                     </div>
 
                     <div v-else>
+                        <div class="m-0 alert alert-danger" role="alert" v-if="doctorError.error">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close" @click="cerrarError()"></button>
+                            <span>{{ doctorError.error_msg }}</span>
+                        </div>
+
+                        <div class="px-0 mt-3">
+                            <div id="filtersHead" class="px-2">
+                                <h5 class="float-start">Filtrar</h5>
+                                <button v-if="!showFiltersBool" id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-down" /></button>
+                                <button v-else id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-up" /></button>
+                            </div>
+                            <div v-if="showFiltersBool" id="filters" class="mb-5">
+                                <div class="row px-4">
+                                    <div class="col-md-6 col-12">
+                                        <label for="nifDoctor">NIF Doctor</label>
+                                        <input v-on:keyup.enter="filter" v-model="filterDoctor" type="text" class="form-control" id="nifDoctor" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="especialidad">Especialidad</label>
+                                        <select v-model="filterEspecialidad" id="especialidad" class="form-control">
+                                            <option selected disabled value="">--</option>
+                                            <option>Psicología</option>
+                                            <option>Psiquiatría</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="pt-3 px-4">
+                                    <button class="btn btn-outline-info btn-sm float-end mx-1" @click="filter()">Filtrar</button>
+                                    <button class="btn btn-outline-danger btn-sm float-end mx-1" @click="clearFilters()">Limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <table class="table table-responsive pt-2">
                             <thead>
                                 <tr>
@@ -205,9 +255,12 @@ export default {
                 fotoDoctor: ''
             },
             doctorView: '',
+            doctorEdit: '',
+            doctoresData: null,
             doctores: null,
+            filterDoctor: '',
+            filterEspecialidad: '',
             editDoctor: false,
-            nifEditDoctor: '',
             newDoctor: false,
             alertDelete: false,
             modalShow: false,
@@ -215,6 +268,7 @@ export default {
                 error: false,
                 error_msg: "",
             },
+            showFiltersBool: false,
             rolUsuario: "",
             styleIfSidebar: {
                 marginLeft: '225px',
@@ -226,7 +280,8 @@ export default {
             const dir = "https://psique-api.up.railway.app/api/doctores";
             axios.get(dir)
                 .then(res => {
-                    this.doctores = res.data;
+                    this.doctoresData = res.data;
+                    this.doctores = this.doctoresData;
                 }).catch(error => {
                     if (error.response) {
                         this.doctorError.error = true;
@@ -286,7 +341,7 @@ export default {
                         }
                     });
             } else {
-                const dir = "https://psique-api.up.railway.app/api/doctores/" + this.nifEditDoctor;
+                const dir = "https://psique-api.up.railway.app/api/doctores/" + this.doctorEdit.nif;
 
                 const json = {
                     "nif": this.doctor.nif,
@@ -294,8 +349,8 @@ export default {
                     "apellido1": this.doctor.apellido1,
                     "apellido2": this.doctor.apellido2,
                     "telefono": this.doctor.telefono,
-                    "fecNac": this.doctor.fecNac,
-                    "especialidad": this.doctor.especialidad,
+                    "fecNac": this.doctorEdit.fecNac,
+                    "especialidad": this.doctorEdit.especialidad,
                     "descripcion": this.doctor.descripcion,
                     "fotoDoctor": this.doctor.fotoDoctor
                 };
@@ -350,7 +405,23 @@ export default {
             this.modalShow = true;
         },
         modDoctor(nif) {
-            this.nifEditDoctor = nif;
+            const dir = "https://psique-api.up.railway.app/api/doctores/" + nif;
+            axios.get(dir)
+                .then(res => {
+                    this.doctorEdit = res.data;
+                }).catch(error => {
+                    if (error.response) {
+                        this.doctorError.error = true;
+                        this.doctorError.error_msg = error.response.statusText;
+                    } else if (error.request) {
+                        this.doctorError.error = true;
+                        this.doctorError.error_msg = error.request.statusText;
+                    } else {
+                        this.doctorError.error = true;
+                        this.doctorError.error_msg = error.message;
+                    }
+                });
+
             this.editDoctor = true;
         },
         deleteDoctor(nif) {
@@ -399,6 +470,14 @@ export default {
                 }
             })
         },
+        filter() {
+            this.doctores = this.doctoresData;
+
+            if (this.filterDoctor)
+                this.doctores = this.doctores.filter(item => { return item.nif.includes(this.filterDoctor) })
+            if (this.filterEspecialidad)
+                this.doctores = this.doctores.filter(item => { return item.especialidad.includes(this.filterEspecialidad) })
+        },
         clear() {
             this.doctorError.error = false;
             this.doctor.nif = '';
@@ -409,6 +488,18 @@ export default {
             this.doctor.fecNac = '';
             this.doctor.especialidad = '';
             this.doctor.descripcion = '';
+        },
+        clearFilters() {
+            this.filterDoctor = '';
+            this.filterEspecialidad = '';
+            this.doctores = this.doctoresData;
+        },
+        showFilters() {
+            if (this.showFiltersBool) {
+                this.showFiltersBool = false
+            } else {
+                this.showFiltersBool = true
+            }
         },
         btnNewDoctor() {
             this.newDoctor = true;
@@ -447,37 +538,6 @@ main {
     overflow: hidden;
 }
 
-@media screen and (min-width: 960px) {
-    main {
-        display: flex;
-    }
-}
-
-@media screen and (max-width: 959px) {
-    div.content {
-        margin-left: 0 !important;
-    }
-}
-
-.slide {
-    text-align: center;
-    background-color: #1e1e1e;
-    color: #ececec;
-}
-
-.alert {
-    padding-left: 0;
-}
-
-.btn-close {
-    padding-right: 20px;
-    font-size: 15px;
-}
-
-.container {
-    min-height: 100vh;
-}
-
 svg {
     margin-right: 7px;
 }
@@ -509,6 +569,43 @@ tbody tr td {
     color: #ececec;
 }
 
+form {
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+}
+
+label,
+option {
+    color: #ececec !important;
+    font-size: 15px;
+}
+
+small,
+.text-muted {
+    color: #6c757d !important;
+}
+
+.slide {
+    text-align: center;
+    background-color: #1e1e1e;
+    color: #ececec;
+}
+
+.alert {
+    padding-left: 0;
+}
+
+.btn-close {
+    padding-right: 20px;
+    font-size: 15px;
+}
+
+.container {
+    min-height: 100vh;
+}
+
 .table {
     --bs-table-border-color: transparent;
     --bs-table-accent-bg: transparent;
@@ -516,19 +613,6 @@ tbody tr td {
     --bs-table-active-color: #333333;
     --bs-table-hover-bg: #eba100;
     --bs-table-hover-color: #333333;
-}
-
-@media (max-width: 768px) {
-    th,
-    td {
-        padding: 10px !important;
-    }
-
-    table {
-        max-width: fit-content;
-        margin-left: auto;
-        margin-right: auto
-    }
 }
 
 .btn-atras,
@@ -553,35 +637,21 @@ tbody tr td {
     right: 50px;
 }
 
-#ver,
-#editar,
-#eliminar {
-    color: #ececec;
-}
-
-#ver:hover {
-    color: #eba100;
-}
-
-#editar:hover {
-    color: #753ac4;
-}
-
-#eliminar:hover {
-    color: #b11f1f;
-}
-
-form {
-    padding: 20px;
-    margin: 0;
-    margin-bottom: 20px;
-    background-color: #1e1e1e;
-}
-
-label,
-option {
-    color: #ececec !important;
-    font-size: 15px;
+.btn-outline-danger {
+    --bs-btn-color: #dc3545;
+    --bs-btn-border-color: #dc3545;
+    --bs-btn-hover-color: rgb(61, 61, 61);
+    --bs-btn-hover-bg: #dc3545;
+    --bs-btn-hover-border-color: #dc3545;
+    --bs-btn-focus-shadow-rgb: 220, 53, 69;
+    --bs-btn-active-color: rgb(61, 61, 61);
+    --bs-btn-active-bg: #dc3545;
+    --bs-btn-active-border-color: #dc3545;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #dc3545;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #dc3545;
+    --bs-gradient: none;
 }
 
 .form-control,
@@ -594,8 +664,65 @@ option {
     -webkit-text-fill-color: #ececec;
     caret-color: #ececec;
 }
+.nif {
+    opacity: 0.35 !important;
+}
 
-small, .text-muted {
-    color: #6c757d !important;
+#ver,
+#editar,
+#eliminar,
+#down {
+    color: #ececec;
+}
+
+#ver:hover {
+    color: #eba100;
+}
+
+#editar:hover {
+    color: #753ac4;
+}
+
+#eliminar:hover {
+    color: #dc3545;
+}
+
+#filtersHead {
+    height: 45px;
+    margin-bottom: 10px;
+}
+
+::-webkit-input-placeholder {
+    opacity: 0.35 !important;
+}
+
+@media screen and (min-width: 960px) {
+    main {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    div.content {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    th,
+    td {
+        padding: 10px !important;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto
+    }
+}
+
+@media (max-width: 462px) {
+    #photoLabel {
+        display: none;
+    }
 }
 </style>

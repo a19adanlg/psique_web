@@ -103,16 +103,12 @@ main {
     overflow: hidden;
 }
 
-@media screen and (min-width: 960px) {
-    main {
-        display: flex;
-    }
+h2.card-title {
+    padding-bottom: 20px;
 }
 
-@media screen and (max-width: 959px) {
-    div.content {
-        margin-left: 0 !important;
-    }
+small, .text-muted {
+    color: #6c757d !important;
 }
 
 .slide {
@@ -127,11 +123,15 @@ main {
     border-radius: 0;
 }
 
-h2.card-title {
-    padding-bottom: 20px;
+@media screen and (min-width: 960px) {
+    main {
+        display: flex;
+    }
 }
 
-small, .text-muted {
-    color: #6c757d !important;
+@media screen and (max-width: 959px) {
+    div.content {
+        margin-left: 0 !important;
+    }
 }
 </style>

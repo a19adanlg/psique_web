@@ -70,7 +70,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                                 <label for="especialidad">Especialidad *</label>
                                                 <select v-model="cita.especialidad" id="especialidad" class="form-control" required>
-                                                    <option selected disabled value="">Selecciona una</option>
+                                                    <option selected disabled value="">--</option>
                                                     <option>Psicología</option>
                                                     <option>Psiquiatría</option>
                                                 </select>
@@ -279,16 +279,10 @@ main {
     overflow: hidden;
 }
 
-@media screen and (min-width: 960px) {
-    main {
-        display: flex;
-    }
-}
-
-@media screen and (max-width: 959px) {
-    div.content {
-        margin-left: 0 !important;
-    }
+label,
+option {
+    color: #ececec !important;
+    font-size: 15px;
 }
 
 .slide {
@@ -332,12 +326,6 @@ main {
     background-color: #1e1e1e;
 }
 
-label,
-option {
-    color: #ececec !important;
-    font-size: 15px;
-}
-
 .form-control,
 .form-control:focus,
 .form-control:hover {
@@ -351,5 +339,17 @@ option {
 
 .leaflet-container {
     height: 400px;
+}
+
+@media screen and (min-width: 960px) {
+    main {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    div.content {
+        margin-left: 0 !important;
+    }
 }
 </style>

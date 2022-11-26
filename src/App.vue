@@ -19,10 +19,16 @@ main {
 
 em {
     margin-right: 10px;
+    color: #ececec !important;
 }
 
 svg {
     margin-right: 3px;
+}
+
+label {
+    color: #ececec !important;
+    opacity: 0.9 !important;
 }
 
 .navbar-nav .dropdown-menu {
@@ -34,8 +40,7 @@ svg {
     margin-right: 15px;
 }
 
-.dropdown-item,
-em {
+.dropdown-item {
     color: #ececec !important;
 }
 
@@ -43,26 +48,6 @@ em {
 .dropdown-item:active {
     background-color: #272626 !important;
     color: #ececec !important;
-}
-
-::-webkit-calendar-picker-indicator {
-    filter: invert(0.8) !important;
-}
-
-::-webkit-datetime-edit-day-field:focus,
-::-webkit-datetime-edit-month-field:focus,
-::-webkit-datetime-edit-year-field:focus,
-::-webkit-datetime-edit-hour-field:focus,
-::-webkit-datetime-edit-minute-field:focus {
-    background-color: #333333;
-}
-
-::-webkit-scrollbar {
-    width: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 14px rgba(82, 82, 82, 0.8);
 }
 
 .modal {
@@ -94,12 +79,6 @@ em {
     height: 200px;
 }
 
-@media screen and (max-width: 592px) {
-    .modal img {
-        display: none;
-    }
-}
-
 .swal2-popup {
     padding: 2em !important;
     border-radius: 0 !important;
@@ -115,8 +94,29 @@ em {
     box-shadow: none !important;
 }
 
-label {
-    color: #ececec !important;
-    opacity: 0.9 !important;
+::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) !important;
+}
+
+::-webkit-datetime-edit-day-field:focus,
+::-webkit-datetime-edit-month-field:focus,
+::-webkit-datetime-edit-year-field:focus,
+::-webkit-datetime-edit-hour-field:focus,
+::-webkit-datetime-edit-minute-field:focus {
+    background-color: #333333;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 14px rgba(82, 82, 82, 0.8);
+}
+
+@media screen and (max-width: 592px) {
+    .modal img {
+        display: none;
+    }
 }
 </style>
