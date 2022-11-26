@@ -83,10 +83,10 @@ export default {
             }).catch(error => {
                 if (error.response) {
                     this.doctorError.error = true;
-                    this.doctorError.error_msg = error.response.statusText;
+                    this.doctorError.error_msg = error.response.data.error;
                 } else if (error.request) {
                     this.doctorError.error = true;
-                    this.doctorError.error_msg = error.request.statusText;
+                    this.doctorError.error_msg = error.request.data.error;
                 } else {
                     this.doctorError.error = true;
                     this.doctorError.error_msg = error.message;

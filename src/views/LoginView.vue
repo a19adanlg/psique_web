@@ -140,10 +140,10 @@ export default {
             }).catch(error => {
                 if (error.response) {
                     this.loginError.error = true;
-                    this.loginError.error_msg = error.response.statusText;
+                    this.loginError.error_msg = error.response.data.error;
                 } else if (error.request) {
                     this.loginError.error = true;
-                    this.loginError.error_msg = error.request.statusText;
+                    this.loginError.error_msg = error.request.data.error;
                 } else {
                     this.loginError.error = true;
                     this.loginError.error_msg = error.message;
@@ -170,10 +170,10 @@ export default {
             }).catch(error => {
                 if (error.response) {
                     this.registroError.error = true;
-                    this.registroError.error_msg = error.response.statusText;
+                    this.registroError.error_msg = error.response.data.error;
                 } else if (error.request) {
                     this.registroError.error = true;
-                    this.registroError.error_msg = error.request.statusText;
+                    this.registroError.error_msg = error.request.data.error;
                 } else {
                     this.registroError.error = true;
                     this.registroError.error_msg = error.message;

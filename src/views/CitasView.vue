@@ -309,10 +309,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.response.statusText;
+                        this.citaError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.request.statusText;
+                        this.citaError.error_msg = error.request.data.error;
                     } else {
                         this.citaError.error = true;
                         this.citaError.error_msg = error.message;
@@ -356,10 +356,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.citaError.error = true;
-                            this.citaError.error_msg = error.response.statusText;
+                            this.citaError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.citaError.error = true;
-                            this.citaError.error_msg = error.request.statusText;
+                            this.citaError.error_msg = error.request.data.error;
                         } else {
                             this.citaError.error = true;
                             this.citaError.error_msg = error.message;
@@ -400,10 +400,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.citaError.error = true;
-                            this.citaError.error_msg = error.response.statusText;
+                            this.citaError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.citaError.error = true;
-                            this.citaError.error_msg = error.request.statusText;
+                            this.citaError.error_msg = error.request.data.error;
                         } else {
                             this.citaError.error = true;
                             this.citaError.error_msg = error.message;
@@ -419,10 +419,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.response.statusText;
+                        this.citaError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.request.statusText;
+                        this.citaError.error_msg = error.request.data.error;
                     } else {
                         this.citaError.error = true;
                         this.citaError.error_msg = error.message;
@@ -439,10 +439,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.response.statusText;
+                        this.citaError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.citaError.error = true;
-                        this.citaError.error_msg = error.request.statusText;
+                        this.citaError.error_msg = error.request.data.error;
                     } else {
                         this.citaError.error = true;
                         this.citaError.error_msg = error.message;
@@ -485,10 +485,10 @@ export default {
                         }).catch(error => {
                             if (error.response) {
                                 this.citaError.error = true;
-                                this.citaError.error_msg = error.response.statusText;
+                                this.citaError.error_msg = error.response.data.error;
                             } else if (error.request) {
                                 this.citaError.error = true;
-                                this.citaError.error_msg = error.request.statusText;
+                                this.citaError.error_msg = error.request.data.error;
                             } else {
                                 this.citaError.error = true;
                                 this.citaError.error_msg = error.message;

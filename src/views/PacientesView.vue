@@ -268,10 +268,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.response.statusText;
+                        this.pacienteError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.request.statusText;
+                        this.pacienteError.error_msg = error.request.data.error;
                     } else {
                         this.pacienteError.error = true;
                         this.pacienteError.error_msg = error.message;
@@ -318,10 +318,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.pacienteError.error = true;
-                            this.pacienteError.error_msg = error.response.statusText;
+                            this.pacienteError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.pacienteError.error = true;
-                            this.pacienteError.error_msg = error.request.statusText;
+                            this.pacienteError.error_msg = error.request.data.error;
                         } else {
                             this.pacienteError.error = true;
                             this.pacienteError.error_msg = error.message;
@@ -358,10 +358,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.pacienteError.error = true;
-                            this.pacienteError.error_msg = error.response.statusText;
+                            this.pacienteError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.pacienteError.error = true;
-                            this.pacienteError.error_msg = error.request.statusText;
+                            this.pacienteError.error_msg = error.request.data.error;
                         } else {
                             this.pacienteError.error = true;
                             this.pacienteError.error_msg = error.message;
@@ -378,10 +378,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.response.statusText;
+                        this.pacienteError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.request.statusText;
+                        this.pacienteError.error_msg = error.request.data.error;
                     } else {
                         this.pacienteError.error = true;
                         this.pacienteError.error_msg = error.message;
@@ -398,10 +398,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.response.statusText;
+                        this.pacienteError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.pacienteError.error = true;
-                        this.pacienteError.error_msg = error.request.statusText;
+                        this.pacienteError.error_msg = error.request.data.error;
                     } else {
                         this.pacienteError.error = true;
                         this.pacienteError.error_msg = error.message;
@@ -444,10 +444,10 @@ export default {
                         }).catch(error => {
                             if (error.response) {
                                 this.pacienteError.error = true;
-                                this.pacienteError.error_msg = error.response.statusText;
+                                this.pacienteError.error_msg = error.response.data.error;
                             } else if (error.request) {
                                 this.pacienteError.error = true;
-                                this.pacienteError.error_msg = error.request.statusText;
+                                this.pacienteError.error_msg = error.request.data.error;
                             } else {
                                 this.pacienteError.error = true;
                                 this.pacienteError.error_msg = error.message;

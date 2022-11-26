@@ -257,10 +257,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.response.statusText;
+                        this.usuarioError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.request.statusText;
+                        this.usuarioError.error_msg = error.request.data.error;
                     } else {
                         this.usuarioError.error = true;
                         this.usuarioError.error_msg = error.message;
@@ -301,10 +301,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.usuarioError.error = true;
-                            this.usuarioError.error_msg = error.response.statusText;
+                            this.usuarioError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.usuarioError.error = true;
-                            this.usuarioError.error_msg = error.request.statusText;
+                            this.usuarioError.error_msg = error.request.data.error;
                         } else {
                             this.usuarioError.error = true;
                             this.usuarioError.error_msg = error.message;
@@ -342,10 +342,10 @@ export default {
                     }).catch(error => {
                         if (error.response) {
                             this.usuarioError.error = true;
-                            this.usuarioError.error_msg = error.response.statusText;
+                            this.usuarioError.error_msg = error.response.data.error;
                         } else if (error.request) {
                             this.usuarioError.error = true;
-                            this.usuarioError.error_msg = error.request.statusText;
+                            this.usuarioError.error_msg = error.request.data.error;
                         } else {
                             this.usuarioError.error = true;
                             this.usuarioError.error_msg = error.message;
@@ -361,10 +361,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.response.statusText;
+                        this.usuarioError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.request.statusText;
+                        this.usuarioError.error_msg = error.request.data.error;
                     } else {
                         this.usuarioError.error = true;
                         this.usuarioError.error_msg = error.message;
@@ -380,10 +380,10 @@ export default {
                 }).catch(error => {
                     if (error.response) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.response.statusText;
+                        this.usuarioError.error_msg = error.response.data.error;
                     } else if (error.request) {
                         this.usuarioError.error = true;
-                        this.usuarioError.error_msg = error.request.statusText;
+                        this.usuarioError.error_msg = error.request.data.error;
                     } else {
                         this.usuarioError.error = true;
                         this.usuarioError.error_msg = error.message;
@@ -429,10 +429,10 @@ export default {
                         }).catch(error => {
                             if (error.response) {
                                 this.usuarioError.error = true;
-                                this.usuarioError.error_msg = error.response.statusText;
+                                this.usuarioError.error_msg = error.response.data.error;
                             } else if (error.request) {
                                 this.usuarioError.error = true;
-                                this.usuarioError.error_msg = error.request.statusText;
+                                this.usuarioError.error_msg = error.request.data.error;
                             } else {
                                 this.usuarioError.error = true;
                                 this.usuarioError.error_msg = error.message;
