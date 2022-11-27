@@ -138,6 +138,7 @@ export default {
                     this.$router.push('/');
                 }
             }).catch(error => {
+                console.clear();
                 if (error.response) {
                     this.loginError.error = true;
                     this.loginError.error_msg = error.response.data.error;
