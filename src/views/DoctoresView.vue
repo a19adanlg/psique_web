@@ -127,7 +127,7 @@
                                         <textarea v-else v-model="doctor.descripcion" class="form-control" id="descripcion" rows="4"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div v-if="editDoctor" class="row">
                                     <div class="col-12 mb-3">
                                         <img :src="doctorEdit.fotoDoctor" alt="Avatar" style="width: 200px; height: auto;" />
                                         <label id="photoLabel" class="mx-3">Foto del doctor actual</label>
@@ -135,7 +135,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 mb-3">
-                                        <label>URL de la nueva foto</label>
+                                        <label v-if="editDoctor">URL de la nueva foto</label>
+                                        <label v-else>Foto del doctor</label>
                                         <input v-model="doctor.fotoDoctor" type="text" class="form-control" id="fecha">
                                     </div>
                                 </div>
