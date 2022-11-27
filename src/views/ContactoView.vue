@@ -285,6 +285,11 @@ option {
     font-size: 15px;
 }
 
+small,
+.text-muted {
+    color: #6c757d !important;
+}
+
 .slide {
     text-align: center;
     background-color: #1e1e1e;
