@@ -485,8 +485,8 @@ export default {
             this.usuarioError.error = false;
         },
         changeOpacity(id) {
-            let input = document.getElementById(id)
-            input.style.opacity = '1'
+            let input = document.getElementById(id);
+            input.classList.remove('select');
         }
     },
     mounted: function () {
@@ -645,7 +645,8 @@ small,
 }
 
 .select {
-    opacity: 0.35;
+    -webkit-text-fill-color: rgba(236, 236, 236, 0.35);
+    color: rgba(236, 236, 236, 0.35);
 }
 
 #ver,
