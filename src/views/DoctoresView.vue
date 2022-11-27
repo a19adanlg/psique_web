@@ -60,7 +60,7 @@
                                 <div v-else class="row">
                                     <div class="nif col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label class="mr-3">NIF doctor</label>
-                                        <input v-model="doctorEdit.nif" type="text" class="form-control" id="nifDoctor" required>
+                                        <input v-model="doctorEdit.nif" type="text" class="form-control" id="nifDoctor" disabled>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -96,7 +96,7 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Fecha de nacimiento</label>
-                                        <input v-if="editDoctor" v-model="doctorEdit.fecNac" type="date" class="form-control" id="fecha">
+                                        <input v-if="editDoctor" v-model="doctorEdit.fecNac" type="date" class="select form-control" id="fechaEdit" @change="changeOpacity('fechaEdit')">
                                         <input v-else v-model="doctor.fecNac" type="date" class="form-control" id="fecha">
                                         <small id="fecha" class="form-text text-muted">Formato: 31/12/2022</small>
                                     </div>
@@ -114,7 +114,7 @@
                                 <div class="row" v-else>
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label for="especialidad">Especialidad</label>
-                                        <select v-model="doctorEdit.especialidad" id="especialidad" class="form-control">
+                                        <select v-model="doctorEdit.especialidad" id="especialidadEdit" class="select form-control" @change="changeOpacity('especialidadEdit')">
                                             <option>Psicología</option>
                                             <option>Psiquiatría</option>
                                         </select>
@@ -512,6 +512,10 @@ export default {
         },
         cerrarError() {
             this.doctorError.error = false;
+        },
+        changeOpacity(id) {
+            let input = document.getElementById(id)
+            input.style.opacity = '1'
         }
     },
     mounted: function () {
@@ -666,6 +670,10 @@ small,
 }
 .nif {
     opacity: 0.35 !important;
+}
+
+.select {
+    opacity: 0.35;
 }
 
 #ver,

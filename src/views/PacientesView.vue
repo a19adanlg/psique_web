@@ -101,9 +101,9 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Fecha de nacimiento</label>
-                                        <input v-if="editPaciente" v-model="pacienteEdit.fecNac" type="date" class="form-control" id="fecha">
+                                        <input v-if="editPaciente" v-model="pacienteEdit.fecNac" type="date" class="select form-control" id="fechaEdit" @change="changeOpacity('fechaEdit')">
                                         <input v-else v-model="paciente.fecNac" type="date" class="form-control" id="fecha">
-                                        <small id="fecha" class="form-text text-muted">Formato: 31/12/2022</small>
+                                        <small class="form-text text-muted">Formato: 31/12/2022</small>
                                     </div>
                                 </div>
                                 <div class="row" v-if="!editPaciente">
@@ -115,7 +115,7 @@
                                         <label>Ciudad</label>
                                         <input v-model="paciente.ciudad" type="text" class="form-control" id="ciudad">
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12 mb-3">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label>Código postal</label>
                                         <input v-model="paciente.cp" type="number" class="form-control" id="cp">
                                     </div>
@@ -498,6 +498,10 @@ export default {
         },
         cerrarError() {
             this.pacienteError.error = false;
+        },
+        changeOpacity(id) {
+            let input = document.getElementById(id)
+            input.style.opacity = '1'
         }
     },
     mounted: function () {
@@ -653,6 +657,10 @@ small,
 
 .nif {
     opacity: 0.35 !important;
+}
+
+.select {
+    opacity: 0.35;
 }
 
 #ver,

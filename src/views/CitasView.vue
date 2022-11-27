@@ -125,13 +125,13 @@
                                     <div v-else class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label>Fecha cita</label>
-                                            <input v-model="citaEdit.fecha" type="date" class="form-control" id="fecha">
-                                            <small id="fecha" class="form-text text-muted">Formato: 31/12/2022</small>
+                                            <input v-model="citaEdit.fecha" type="date" class="select form-control" id="fechaEdit" @change="changeOpacity('fechaEdit')">
+                                            <small class="form-text text-muted">Formato: 31/12/2022</small>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                             <label>Hora cita</label>
-                                            <input v-model="citaEdit.hora" type="time" class="form-control" id="hora">
-                                            <small id="hora" class="form-text text-muted">Formato: 24:00</small>
+                                            <input v-model="citaEdit.hora" type="time" class="select form-control" id="horaEdit" @change="changeOpacity('horaEdit')">
+                                            <small class="form-text text-muted">Formato: 24:00</small>
                                         </div>
                                     </div>
                                 </div>
@@ -544,6 +544,10 @@ export default {
         },
         cerrarError() {
             this.citaError.error = false;
+        },
+        changeOpacity(id) {
+            let input = document.getElementById(id)
+            input.style.opacity = '1'
         }
     },
     mounted: function () {
@@ -695,6 +699,10 @@ small,
     box-shadow: 0 0 0 1000px #222222 inset !important;
     -webkit-text-fill-color: #ececec;
     caret-color: #ececec;
+}
+
+.select {
+    opacity: 0.35;
 }
 
 #ver,

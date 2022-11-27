@@ -55,7 +55,7 @@
                                 <div v-else class="row">
                                     <div class="nif col-lg-3 col-md-3 col-sm-12 mb-3">
                                         <label class="mr-3">NIF usuario</label>
-                                        <input v-model="usuarioEdit.nif" type="text" class="form-control" id="nifUsuario" required>
+                                        <input v-model="usuarioEdit.nif" type="text" class="form-control" id="nifUsuario" disabled>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -100,7 +100,7 @@
                                 </div>
                                 <div v-if="rolUsuario === 'ROLE_ADMIN'" class="col-lg-3 col-md-3 col-sm-12 mb-3">
                                     <label for="rol">Rol</label>
-                                    <select v-if="editUsuario" v-model="usuarioEdit.rol" id="rol" class="form-control">
+                                    <select v-if="editUsuario" v-model="usuarioEdit.rol" id="rolEdit" class="select form-control" @change="changeOpacity('rolEdit')">
                                         <option value="ROLE_ADMIN">Administrador</option>
                                         <option value="ROLE_DOCTOR">Doctor</option>
                                         <option value="ROLE_PACIENTE">Paciente</option>
@@ -483,6 +483,10 @@ export default {
         },
         cerrarError() {
             this.usuarioError.error = false;
+        },
+        changeOpacity(id) {
+            let input = document.getElementById(id)
+            input.style.opacity = '1'
         }
     },
     mounted: function () {
@@ -638,6 +642,10 @@ small,
 
 .nif {
     opacity: 0.35 !important;
+}
+
+.select {
+    opacity: 0.35;
 }
 
 #ver,
