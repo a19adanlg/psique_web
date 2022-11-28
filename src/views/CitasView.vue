@@ -173,10 +173,10 @@
                         </div>
 
                         <div class="px-0 mt-3">
-                            <div id="filtersHead" class="px-2">
+                            <div id="filtersHead" class="px-2" @click="showFilters()">
                                 <h5 class="float-start">Filtrar</h5>
-                                <button v-if="!showFiltersBool" id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-down" /></button>
-                                <button v-else id="down" type="button" class="btn btn-link btn-sm p-0 float-end" @click="showFilters()"><font-awesome-icon icon="chevron-up" /></button>
+                                <button v-if="!showFiltersBool" id="chevron" type="button" class="btn btn-link btn-sm p-0 float-end"><font-awesome-icon icon="chevron-down" /></button>
+                                <button v-else id="chevron" type="button" class="btn btn-link btn-sm p-0 float-end"><font-awesome-icon icon="chevron-up" /></button>
                             </div>
                             <div v-if="showFiltersBool" id="filters" class="mb-5">
                                 <div class="row px-4">
@@ -709,7 +709,7 @@ small,
 #ver,
 #editar,
 #eliminar,
-#down {
+#chevron {
     color: #ececec;
 }
 
@@ -726,6 +726,7 @@ small,
 }
 
 #filtersHead {
+    cursor: pointer;
     height: 45px;
     margin-bottom: 10px;
 }
