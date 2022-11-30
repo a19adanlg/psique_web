@@ -180,7 +180,7 @@
                             </div>
                             <div v-if="showFiltersBool" id="filters" class="mb-5">
                                 <div class="row px-4">
-                                    <div v-if="rolUsuario === 'ROLE_DOCTOR'" class="col-md-6 col-12">
+                                    <div v-if="rolUsuario === 'ROLE_DOCTOR'" class="col-12">
                                         <label>NIF Paciente</label>
                                         <input v-on:keyup.enter="filter" v-model="filterPaciente" type="text" class="form-control" id="nifPaciente" autocomplete="off">
                                     </div>
@@ -188,13 +188,23 @@
                                         <label>NIF Doctor</label>
                                         <input v-on:keyup.enter="filter" v-model="filterDoctor" type="text" class="form-control" id="nifDoctor" autocomplete="off">
                                     </div>
-                                    <div class="col-md-6 col-12">
+                                    <div v-if="rolUsuario === 'ROLE_PACIENTE'" class="col-md-6 col-12">
                                         <label for="especialidad">Especialidad</label>
                                         <select v-model="filterEspecialidad" id="especialidad" class="form-control">
                                             <option selected disabled value="">--</option>
                                             <option>Psicología</option>
                                             <option>Psiquiatría</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 px-4">
+                                    <div class="col-md-6 col-12">
+                                        <label>Desde el día...</label>
+                                        <input v-model="filterFechaInicio" type="date" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label>Hasta el día...</label>
+                                        <input v-model="filterFechaFin" type="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="pt-3 px-4">
@@ -284,6 +294,8 @@ export default {
             filterDoctor: '',
             filterEspecialidad: '',
             filterPaciente: '',
+            filterFechaInicio: '',
+            filterFechaFin: '',
             editCita: false,
             newCita: false,
             alertDelete: false,
@@ -506,6 +518,10 @@ export default {
                 this.citas = this.citas.filter(item => { return item.especialidad.includes(this.filterEspecialidad) })
             if (this.filterPaciente)
                 this.citas = this.citas.filter(item => { return item.nifPaciente.includes(this.filterPaciente) })
+            if (this.filterFechaInicio)
+                this.citas = this.citas.filter(item => { return item.fecha >= this.filterFechaInicio })
+            if (this.filterFechaFin)
+                this.citas = this.citas.filter(item => { return item.fecha <= this.filterFechaFin })
         },
         clear() {
             this.citaError.error = false;
@@ -524,6 +540,8 @@ export default {
             this.filterDoctor = '';
             this.filterEspecialidad = '';
             this.filterPaciente = '';
+            this.filterFechaInicio = '';
+            this.filterFechaFin = '';
             this.citas = this.citasData;
         },
         showFilters() {
