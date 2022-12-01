@@ -9,9 +9,9 @@
                 <div class="container px-0">
                     <b-carousel controls indicators :interval="4000" class="d-none d-md-flex" id="carousel-no-animation" style="text-shadow: 0px 0px 2px #000" no-animation>
                         <b-carousel-slide caption="Bienvenido a Psique 1"
-                            img-src="https://wallpaperaccess.com/full/2535103.jpg" />
-                        <b-carousel-slide caption="Bienvenido a Psique 2"
                             img-src="https://s3-ap-south-1.amazonaws.com/startupuploads/wp-content/uploads/2017/03/07211425/mountains_ridge-1920x540.jpeg" />
+                        <b-carousel-slide caption="Bienvenido a Psique 2"
+                            img-src="https://wallpaperaccess.com/full/2535103.jpg" />
                         <b-carousel-slide caption="Bienvenido a Psique 3"
                             img-src="https://coolhdwall.com/storage/202101/space-abstract-illustration-background-2k-wallpaper-5120x1440.jpg" />
                     </b-carousel>
