@@ -185,10 +185,6 @@
                                         <input v-on:keyup.enter="filter" v-model="filterPaciente" type="text" class="form-control" id="nifPaciente" autocomplete="off">
                                     </div>
                                     <div v-if="rolUsuario === 'ROLE_PACIENTE'" class="col-md-6 col-12">
-                                        <label>NIF Doctor</label>
-                                        <input v-on:keyup.enter="filter" v-model="filterDoctor" type="text" class="form-control" id="nifDoctor" autocomplete="off">
-                                    </div>
-                                    <div v-if="rolUsuario === 'ROLE_PACIENTE'" class="col-md-6 col-12">
                                         <label for="especialidad">Especialidad</label>
                                         <select v-model="filterEspecialidad" id="especialidad" class="form-control">
                                             <option selected disabled value="">--</option>
@@ -219,9 +215,9 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th v-if="rolUsuario === 'ROLE_DOCTOR'" scope="col">NIF Paciente</th>
-                                    <th v-else-if="rolUsuario === 'ROLE_PACIENTE'" scope="col">NIF Doctor</th>
                                     <th class="d-none d-md-table-cell" scope="col">Nombre</th>
                                     <th class="d-none d-md-table-cell" scope="col">Apellidos</th>
+                                    <th v-if="rolUsuario === 'ROLE_PACIENTE'" scope="col">Especialidad</th>
                                     <th scope="col">Fecha y hora</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -230,11 +226,11 @@
                                 <tr v-for="cita in citas" :key="cita.id">
                                     <th scope="row">{{ cita.id }}</th>
                                     <td v-if="rolUsuario === 'ROLE_DOCTOR'">{{ cita.nifPaciente }}</td>
-                                    <td v-else-if="rolUsuario === 'ROLE_PACIENTE'">{{ cita.nifDoctor }}</td>
                                     <td v-if="rolUsuario === 'ROLE_DOCTOR'" class="d-none d-md-table-cell"> {{ cita.nombreP }}</td>
                                     <td v-else-if="rolUsuario === 'ROLE_PACIENTE'" class="d-none d-md-table-cell"> {{ cita.nombreD }}</td>
                                     <td v-if="rolUsuario === 'ROLE_DOCTOR'" class="d-none d-md-table-cell"> {{ cita.apellido1P }} {{ cita.apellido2P }}</td>
                                     <td v-else-if="rolUsuario === 'ROLE_PACIENTE'" class="d-none d-md-table-cell"> {{ cita.apellido1D }} {{ cita.apellido2D }}</td>
+                                    <td v-if="rolUsuario === 'ROLE_PACIENTE'">{{ cita.especialidad }}</td>
                                     <td>{{ cita.fecha }}; {{ cita.hora }}</td>
                                     <td>
                                         <b-link id="ver" href="#">
