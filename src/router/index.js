@@ -86,6 +86,8 @@ const protectedRoutes = [
 ]
 
 router.beforeEach((to, from, next) => {
+    window.scrollTo(0, 0);
+
     const isProtected = protectedRoutes.includes(to.name);
     if (isProtected && !isLoggedIn()) {
         next({

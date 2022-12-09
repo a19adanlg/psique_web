@@ -226,7 +226,7 @@ export default {
                 "mensaje": this.cita.mensaje
             };
             axios.post(dir, json)
-                .then(res => {
+                .then(() => {
                     this.clear();
 
                     this.$swal.fire({
@@ -239,7 +239,7 @@ export default {
                         background: '#222222'
                     });
 
-                    return res;
+                    this.$router.push('/');
                 }).catch(error => {
                     if (error.response) {
                         this.citaError.error = true;
