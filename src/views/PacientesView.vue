@@ -16,23 +16,23 @@
                         <p class="d-flex">{{ pacienteView.fecNac ? pacienteView.fecNac : '--' }}</p>
                     </div>
                     <div><span class="campo">Teléfono</span>
-                        <p class="d-flex">{{ pacienteView.telefono }}</p>
+                        <p class="d-flex">{{ pacienteView.telefono ? pacienteView.telefono : '--' }}</p>
                     </div>
                     <div><span class="campo">Dirección postal</span></div>
                     <div class="px-4"><span class="campo">Dirección</span>
-                        <p class="d-flex">{{ pacienteDireccion.direccion }}</p>
+                        <p class="d-flex">{{ pacienteDireccion.direccion ? pacienteDireccion.direccion : '--' }}</p>
                     </div>
                     <div class="px-4"><span class="campo">Código postal</span>
-                        <p class="d-flex">{{ pacienteDireccion.cp }}</p>
+                        <p class="d-flex">{{ pacienteDireccion.cp ? pacienteDireccion.cp : '--' }}</p>
                     </div>
                     <div class="px-4"><span class="campo">Ciudad</span>
-                        <p class="d-flex">{{ pacienteDireccion.ciudad }}</p>
+                        <p class="d-flex">{{ pacienteDireccion.ciudad ? pacienteDireccion.ciudad : '--' }}</p>
                     </div>
                     <div class="px-4"><span class="campo">Provincia</span>
-                        <p class="d-flex">{{ pacienteDireccion.provincia }}</p>
+                        <p class="d-flex">{{ pacienteDireccion.provincia ? pacienteDireccion.provincia : '--' }}</p>
                     </div>
                     <div class="px-4"><span class="campo">País</span>
-                        <p class="d-flex">{{ pacienteDireccion.pais }}</p>
+                        <p class="d-flex">{{ pacienteDireccion.pais ? pacienteDireccion.pais : '--' }}</p>
                     </div>
                 </div>
                 <b-button class="mt-3" variant="outline-danger" @click="modalShow = !modalShow">Cerrar</b-button>
